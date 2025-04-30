@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  postgres-go:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: app_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  migrate:
+    image: migrate/migrate
+    command:
+      [
+        "-path",
+        "/migrations",
+        "-database",
+        "postgres://admin:password@postgres-go:5432/app_db?sslmode=disable",
+        "up",
+      ]
+    volumes:
+      - ./migrations:/migrations
+    depends_on:
+      - postgres-go
+    entrypoint: /bin/sh -c "until nc -z postgres-go 5432; do echo 'Waiting for postgres...'; sleep 1; done; migrate -path /migrations -database postgres://admin:password@postgres-go:5432/app_db?sslmode=disable up"
+
+volumes:
+  pg_data:
