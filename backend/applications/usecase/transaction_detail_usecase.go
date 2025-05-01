@@ -6,9 +6,12 @@ import (
 	"backend/pkg/response"
 )
 
+// definig strcut transaction usecase
 type useTransactionDetailUsecase struct {
 	repo repository.TransactionDetailRepository
 }
+
+// defining interface usecase
 
 type TransactionDetailUsecase interface {
 	BulkSave([]entity.TransactionDetailEntity) ([]*entity.TransactionDetailEntity, error)

@@ -2,7 +2,7 @@ package repository
 
 import (
 	"backend/domain/entity"
-	voucherdto "backend/dtos/Voucher"
+	voucherdto "backend/dtos/voucher"
 )
 
 type VoucherRepository interface {

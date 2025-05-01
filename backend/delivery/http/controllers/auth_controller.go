@@ -2,7 +2,7 @@ package controllers
 
 import (
 	usecase "backend/applications/usecase"
-	authdto "backend/dtos/Auth"
+	authdto "backend/dtos/auth"
 	response "backend/pkg/response"
 	validation "backend/pkg/validation"
 	"fmt"
@@ -23,22 +23,24 @@ func NewAuthController(usecase usecase.AuthUsecase, ROUTE_API string) *AuthContr
 	}
 }
 
+// login
 func (controller *AuthController) Login(c *fiber.Ctx) error {
 
 	var req authdto.LoginDto
 
 	//validated json request
-
 	if err := c.BodyParser(&req); err != nil {
 		return response.NewErrorResponseHandler(c, 400, "failed to parse body parse", err)
 	}
 
+	//validated schem
 	if err := validator.New().Struct(req); err != nil {
 		validationError := validation.ErrorValidation(err)
 		return response.NewErrorResponseHandler(c, 422, "Validation Error", validationError)
 
 	}
 
+	//login logic usecase
 	data, err := controller.usecase.SignIn(req)
 	if err != nil {
 		errorValidation := err.(*response.ErrorResponse)
@@ -53,20 +55,23 @@ func (controller *AuthController) Save(c *fiber.Ctx) error {
 
 	var req authdto.CreateAuthDto
 
-	//validated json request
-
+	//validated parsing json
 	if err := c.BodyParser(&req); err != nil {
 		return response.NewErrorResponseHandler(c, 400, "failed to parse body parse", err)
 	}
 
+	// validated schema json create
 	if err := validator.New().Struct(req); err != nil {
 		validationError := validation.ErrorValidation(err)
 		return response.NewErrorResponseHandler(c, 422, "Validation Error", validationError)
 
 	}
 
+	// created user
 	data, err := controller.usecase.Save(req)
 	if err != nil {
+
+		// error when failed to create users
 		errorValidation := err.(*response.ErrorResponse)
 		return response.NewErrorResponseHandler(c, errorValidation.Code, errorValidation.Message, nil)
 	}

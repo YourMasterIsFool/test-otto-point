@@ -17,6 +17,7 @@ func NewTransactionDetailRepository(db *gorm.DB) repository.TransactionDetailRep
 	}
 }
 
+// bulk tranasction detail
 func (repo *useTransactionDetailRepository) BulkSave(entities []entity.TransactionDetailEntity) ([]*entity.TransactionDetailEntity, error) {
 	if err := repo.DB.Create(&entities).Error; err != nil {
 		return nil, err

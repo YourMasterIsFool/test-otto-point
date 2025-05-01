@@ -3,7 +3,7 @@ package postgres_gorm_repository_impl
 import (
 	"backend/domain/entity"
 	"backend/domain/repository"
-	voucherdto "backend/dtos/Voucher"
+	voucherdto "backend/dtos/voucher"
 
 	"gorm.io/gorm"
 )
@@ -50,15 +50,20 @@ func (repo *useVoucherRepositoryImpl) Detail(id uint) (*entity.VoucherEntity, er
 	return &data, nil
 }
 
+// check voucher berdasarkan brandId
 func (repo *useVoucherRepositoryImpl) FindByBrandId(brandId uint) ([]*entity.VoucherEntity, error) {
+
+	// define list voucher entitty
 	var listVoucher []*entity.VoucherEntity
 
-	if err := repo.DB.Where("brand_id = ?", brandId).Find(&listVoucher).Error; err != nil {
+	// get list voucher entity
+	if err := repo.DB.Model(&entity.VoucherEntity{}).Where("brand_id = ?", brandId).Find(&listVoucher).Error; err != nil {
 		return nil, err
 	}
 	return listVoucher, nil
 }
 
+// check multiple data voucher
 func (repo *useVoucherRepositoryImpl) FindByMultipleId(multipleID []uint) ([]*entity.VoucherEntity, error) {
 	var listVoucher []*entity.VoucherEntity
 

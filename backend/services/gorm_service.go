@@ -6,6 +6,7 @@ import (
 	postgres_gorm_repository_impl "backend/infrastructure/postgresql_gorm/repository"
 )
 
+// defining GormService struct
 type GormService struct {
 	BrandUsecase       usecase.BrandUsecase
 	VoucherUsecase     usecase.VoucherUsecase

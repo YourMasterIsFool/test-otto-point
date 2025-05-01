@@ -32,6 +32,7 @@ func (controller *BrandController) Save(c *fiber.Ctx) error {
 		return response.NewErrorResponseHandler(c, 400, "failed to parse body parse", err)
 	}
 
+	// validator dto
 	if err := validator.New().Struct(req); err != nil {
 
 		// custom validation error
@@ -40,10 +41,13 @@ func (controller *BrandController) Save(c *fiber.Ctx) error {
 			c, http.StatusUnprocessableEntity, "Error validation create", validationError)
 	}
 
+	// membuat brand
+
 	data, err := controller.brandUsecase.Save(req)
 
 	if err != nil {
 
+		// error apabila gagal create brand
 		return response.NewErrorResponseHandler(c, 400, "Error Creating", err)
 	}
 
@@ -52,5 +56,7 @@ func (controller *BrandController) Save(c *fiber.Ctx) error {
 }
 
 func (controller *BrandController) StartController(app *fiber.App) {
+
+	//brand controller
 	app.Post(controller.ROUTE_API, controller.Save)
 }

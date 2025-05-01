@@ -8,6 +8,7 @@ import (
 	jwtware "github.com/gofiber/contrib/jwt"
 )
 
+// custom jwt middleware protected route
 func JWTProtected(c *fiber.Ctx) error {
 	return jwtware.New(jwtware.Config{
 		SigningKey: jwtware.SigningKey{Key: []byte(os.Getenv("JWT_SECRET"))},

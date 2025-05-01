@@ -2,7 +2,7 @@ package controllers
 
 import (
 	usecase "backend/applications/usecase"
-	voucherdto "backend/dtos/Voucher"
+	voucherdto "backend/dtos/voucher"
 	response "backend/pkg/response"
 	validation "backend/pkg/validation"
 	"fmt"
@@ -90,10 +90,9 @@ func (controller *voucherController) GetById(c *fiber.Ctx) error {
 
 func (controller *voucherController) StartController(app *fiber.App) {
 
-	// defifining contrller
+	// defining controller form fiber go
 	app.Post(controller.ROUTE_API, controller.Save)
 	app.Get(controller.ROUTE_API, controller.GetById)
-
 	app.Get(fmt.Sprintf("%s/brand", controller.ROUTE_API), controller.GetByBrand)
 
 }

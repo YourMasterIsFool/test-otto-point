@@ -3,7 +3,7 @@ package usecase
 import (
 	entity "backend/domain/entity"
 	repository "backend/domain/repository"
-	voucherdto "backend/dtos/Voucher"
+	voucherdto "backend/dtos/voucher"
 	response "backend/pkg/response"
 	"errors"
 	"net/http"

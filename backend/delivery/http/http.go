@@ -2,7 +2,6 @@ package http
 
 import (
 	"backend/delivery/http/controllers"
-	"backend/pkg/validation"
 	"backend/services"
 
 	"github.com/gofiber/fiber/v2"
@@ -10,10 +9,9 @@ import (
 
 func StartServerHttp() error {
 
-	validation.InitValidator()
-
 	app := fiber.New()
 
+	// call gorm service for can use usecase
 	gormService := services.NewGormService()
 	// defining api
 
