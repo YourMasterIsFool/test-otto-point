@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+
+
+
+@layer components {
+
+  .form-group {
+    @apply flex flex-col items-start w-full space-y-3
+  }
+
+  .form-group label {
+    @apply font-bold xl:text-lg lg:text-base text-sm;
+  }
+  .form-group .error-message {
+    @apply text-red-500 text-xs;
+  }
+
+  .form-group .form-input {
+    @apply xl:py-2 py-2 px-3 border border-gray-600 xl:w-72 w-full lg:text-base xl:px-3 text-xs;
+  }
+
+  .button {
+    @apply px-6 py-2 cursor-pointer rounded-md xl:text-lg lg:text-base text-xs
+  }
+
+  .button-primary {
+    @apply text-white bg-green-400 text-white hover:bg-green-500 transition-all duration-300
+  }
+  
+}
